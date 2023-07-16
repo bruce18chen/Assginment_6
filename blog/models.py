@@ -27,6 +27,16 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class ContestEntry(models.Model):
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
+    email = models.EmailField()
+    image = models.ImageField(upload_to='uploads/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 # other model code...

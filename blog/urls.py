@@ -9,4 +9,5 @@ urlpatterns = [
     path('terms/', views.terms_and_conditions, name='terms-and-conditions'),
     path('topics/', views.TopicListView.as_view(), name='topic-list'),
     path('topics/<slug:slug>/', views.TopicDetailView.as_view(), name='topic-detail'),
+    path('contest/', views.contest, name='contest'),
 ]

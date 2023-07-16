@@ -6,6 +6,21 @@ from django.views.generic.detail import DetailView
 from . import models
 from django.shortcuts import render
 from .models import Post
+from .forms import ContestEntryForm
+
+# In views.py
+
+
+
+def contest(request):
+    if request.method == 'POST':
+        form = ContestEntryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ContestEntryForm()
+    return render(request, 'contest.html', {'form': form})
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
