@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+
+
+
 
 class PublishedManager(models.Manager):
     def published(self):
@@ -38,7 +42,13 @@ class ContestEntry(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
-
-# other model code...
-
+class Comment(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)  # a reference to the user who made the comment
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)  # a reference to the post on which the comment was made
+    name = models.CharField(max_length=255, blank=True)  # the name of the user who wrote the comment
+    text = models.TextField()  # the content of the comment
+    likes = models.PositiveIntegerField(default=0)  # the number of likes the comment has received
+    dislikes = models.PositiveIntegerField(default=0)  # the number of dislikes the comment has received
+    created_at = models.DateTimeField(auto_now_add=True)  # the time the comment was created
+    updated_at = models.DateTimeField(auto_now=True)  # the last time the comment was updated
 

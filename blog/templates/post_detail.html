@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .like-button img, .dislike-button img {
+        width: 20px;  /* Adjust as needed */
+        height: 20px; /* Adjust as needed */
+    }
+</style>
+
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+
+    <!-- Comments Section -->
+    <h2>Comments</h2>
+  {% for comment in comments %}
+    <!-- Display comment content -->
+    <p>{{ comment.text }}</p>
+
+    <!-- Like button -->
+    <a href="#" class="like-button" data-comment-id="{{ comment.id }}">
+        <img src="{% static 'blog/thumbsup.png' %}" alt="Like">
+    </a>
+    <span id="like-count-{{ comment.id }}">{{ comment.likes }}</span>
+
+    <!-- Dislike button -->
+    <a href="#" class="dislike-button" data-comment-id="{{ comment.id }}">
+        <img src="{% static 'blog/thumbsdown.png' %}" alt="Dislike">
+    </a>
+    <span id="dislike-count-{{ comment.id }}">{{ comment.dislikes }}</span>
+{% endfor %}
+
+
+
+    <!-- Add a comment -->
+    <h3>Add a Comment</h3>
+    <form action="{% url 'post_comment' post.id %}" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

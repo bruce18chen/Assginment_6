@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
     <h1>All Posts</h1>
     {% for post in posts %}
         <div>
-            <h2>{{ post.title }}</h2>
+            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
             <h3>Topic: <a href="{{ post.topic.get_absolute_url }}">{{ post.topic.name }}</a></h3>
             <p>{{ post.content }}</p>
         </div>

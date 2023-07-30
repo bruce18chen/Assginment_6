@@ -1,0 +1,18 @@
+{% load static %}
+
+{% for comment in comments %}
+    <div class="comment">
+        <h3>Posted by: {{ comment.user }}</h3>
+        <p>{{ comment.text }}</p>
+        <div class="like-dislike">
+            <img src="{% static 'thumbsup.png' %}" class="like" data-comment-id="{{ comment.id }}"> {{ comment.likes }}
+            <img src="{% static 'thumbsdown.png' %}" class="dislike" data-comment-id="{{ comment.id }}"> {{ comment.dislikes }}
+        </div>
+    </div>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+<!-- Include JavaScript -->
+<script src="{% static 'blog/csrf.js' %}"></script>
+<script src="{% static 'blog/comments.js' %}"></script>
